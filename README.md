@@ -9,11 +9,24 @@ The course consists of six two hour lectures, followed by one hour to discuss
 the week's homework assignment. Followed by a final project on real world data.
 
 * Intro and Model Performance
+    * [slides](https://rawgit.com/wildtreetech/advanced-computing-2018/master/index.html?p=lecture1.md) [notebook](https://mybinder.org/v2/gh/wildtreetech/advanced-computing-2018/master?filepath=%2Fmaterial%2Flecture-01%2Flecture.ipynb) [exercise](https://github.com/wildtreetech/advanced-computing-2018/blob/master/material/lecture-01/exercise.ipynb)
 * Tree based models
 * Neural Networks
 * Feature engineering
 * Embeddings and pretrained networks
 * Interpretability
+
+
+# Run in the cloud
+
+You can run the notebooks from this repository from your browser without
+installing anything. To do so click the badge below.
+
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/wildtreetech/advanced-computing-2018/master)
+
+This is good if you want to try out something but mybinder.org makes it a
+bit difficult to save your work so I recommend you still install things
+locally.
 
 
 # Technicalities, installing, running code

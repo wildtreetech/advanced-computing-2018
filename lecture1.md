@@ -42,6 +42,7 @@ class: middle, center
 * 10% attendance
     * if you can't make it, excuse yourself by email by 8.50am
 * 10% per homework
+    * contribution to the discussion
     * does it run?
     * did you make an effort?
 * 30% final project

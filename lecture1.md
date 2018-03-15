@@ -28,7 +28,7 @@ class: middle, center
 # Timeline
 
 * Six lectures.
-    * 15 March, 22 March, ...
+    * 15 March, 22 March, 12 April, 19 April, 26 April, 3 May
 * Always in this room.
 * Six exercises, 1hr after each lecture.
     * We will discuss the questions from the previous week’s lecture.

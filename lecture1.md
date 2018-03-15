@@ -323,7 +323,7 @@ What is the accuracy of this classifier?
 ---
 
 class: middle, center
-# Interlude
+# Interlude 1
 
 ---
 
@@ -354,7 +354,13 @@ Con: slower
 ---
 
 class: middle, center
-# Interlude
+# Interlude 2
+
+---
+
+# The master algorithm
+
+.center.width-90[![](images/gridsearch_workflow.png)]
 
 ---
 
@@ -495,6 +501,5 @@ avg / total       0.80      0.76      0.75       100
 
 ---
 
-# References
-
-- http://www.cs.columbia.edu/%7Eamueller/comsw4995s18/schedule/
+class: middle, center
+# Questions ?!?!??!?

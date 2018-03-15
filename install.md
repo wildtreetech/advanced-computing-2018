@@ -82,6 +82,7 @@ In the project folder run :
 `
 conda env create -f environment.yml
 `
+
 `
 source activate adv-comp-18
 `

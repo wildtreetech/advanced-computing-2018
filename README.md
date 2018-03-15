@@ -56,5 +56,5 @@ There are many good books, lecture courses and videos out there.
 * [EE-559 – Deep Learning](https://documents.epfl.ch/users/f/fl/fleuret/www/dlc/)
 
 [ISL]: http://www-bcf.usc.edu/~gareth/ISL/
-[ESL]: https://statweb.stanford.edu/~tibs/ElemStatLearn/
+[ESL]: https://web.stanford.edu/~hastie/ElemStatLearn/index.html
 [IML]: http://shop.oreilly.com/product/0636920030515.do

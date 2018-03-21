@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,900);
 
 body {
-    font-family: 'Comic sans', 'Lato', 'Avenir Next', 'Avenir', 'Trebuchet MS', 'Segoe UI', sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-family: 'Lato', 'Avenir Next', 'Avenir', 'Trebuchet MS', 'Segoe UI', sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     color: rgba(27, 73, 149, 1);
     line-height: 1.3;
     font-size: 0.98em;
@@ -16,6 +16,18 @@ body {
 
 .red {
     color: #d11a01;
+}
+
+.redbg {
+    color: #000;
+    background-color: #d11a01;
+    padding: 3px;
+}
+
+.bluebg {
+    color: #ccc;
+    background-color: rgba(27, 73, 149, 1);
+    padding: 3px;
 }
 
 .Q {

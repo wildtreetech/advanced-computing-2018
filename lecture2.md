@@ -248,6 +248,10 @@ Combine several uncorrelated models together:
 
 Combine predictions from logistic regression and a decision tree.
 
+* Accuracy for LogisticRegression: 0.84
+* Accuracy for DecisionTree: 0.80
+* Accuracy for combination: 0.88
+
 ---
 
 # The key: uncorrelated models
@@ -386,6 +390,8 @@ $$f_2(x) \approx y - \alpha f_1(x)$$
 $$f_3(x) \approx y - \alpha f_1(x) - \alpha f_2(x)$$
 
 $$f_4(x) \approx y - \alpha f_1(x) - \alpha f_2(x) - \alpha f_3(x)$$
+
+$$ ... $$
 
 At each step you try and fix the mistakes made by the previous model. The
 model is fitted to the residuals of the previous step.

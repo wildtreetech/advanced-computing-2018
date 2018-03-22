@@ -6,7 +6,7 @@ Lecture 2: Trees and ensembles
 
 ---
 
-# Tree based models
+# Real world data
 
 * non linear problems?
 * redundant features?
@@ -642,3 +642,7 @@ not to use them. Might not produce the absolute best solution.
 
 Gradient boosted trees is the go to solution for most real world
 problems. Needs some careful tuning.
+
+Reading:
+* Random forests: chapter 15 of "Elements of Statistical Learning"
+* Boosted trees: chapter 10.9 of "Elements of Statistical Learning"

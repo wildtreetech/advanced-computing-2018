@@ -6,6 +6,17 @@ Lecture 2: Trees and ensembles
 
 ---
 
+# Tree based models
+
+* non linear problems?
+* redundant features?
+* categorical features?
+* different scales per feature?
+
+Today is about Random forests and gradient boosted trees.
+
+---
+
 class: middle, center
 
 # Decision trees
@@ -306,6 +317,18 @@ Weighted mean decrease of impurity.
 
 ---
 
+# Tuning random forests
+
+* Main parameter: max_features
+    * around `sqrt(n_features)` for classification
+    * around `n_features` for regression
+* `n_estimators` > 100
+* Restricting tree growth might help, definitely helps with model size!
+    * `max_depth`, `max_leaf_nodes`, `min_samples_split`
+
+
+---
+
 class: middle, center
 
 # Gradient boosting
@@ -402,85 +425,135 @@ or "learning rate".
 
 ---
 
+class: middle, center
+
 # Interlude 2
 
-show that you can overfit if you add more and more trees. Unlike RF.
-
 ???
+
+show that you can overfit if you add more and more trees. Unlike RF.
 
 Pointer to Catboost and dynamic boost, claims to not overfit.
 
 ---
 
-# boosting is a general algorithm
-
-lightGBM
-
----
-
 # Feature importances
 
-sklearn code to get them, illustrate that it is through eyes of the model
-beer brewing comment
+Weighted "mean decrease of impurity".
+
+.center.width-60[![](images/feature_importances.png)]
+
+.footnote[G. Louppe, Understanding Random Forests,
+  https://github.com/glouppe/phd-thesis
+]
 
 ---
 
 # Partial dependence plots
 
-Boston housing data or wine?
+.center.width-70[![](images/pdp-wine.png)]
+
+---
+
+# Partial dependence plots
+
+.center.width-100[![](images/pdp-wine-2d.png)]
 
 ---
 
 # Tuning gradient boosting
 
-* max_features tends to be small
-* smaller learning rate means more trees
-* ~1000 trees
-* random search example
+* `max_features` tends to be small
+* smaller learning rate requires more trees
+* tune with ~1000 trees (or as big as you have patience)
 
----
+.center.width-80[![](images/gbrt-recipe.png)]
 
-# tuning GBT big/small LR
-
-picture
-
----
-
-# tuning GBT sub_sample
-
-picture
+Once you have good parameters increase `n_estimators` and decrease learning rate.
 
 ---
 
 # XGBoost
 
-scikit-learn compatible, faster!
+Fully scikit-learn compatible, but faster!
+
+```
+from xgboost import XGBClassifier
+
+xgb = XGBClassifier()
+xgb.fit(X_train, y_train)
+xgb.score(X_test, y_test))
+```
+
+Install it with `conda install -c conda-forge xgboost`.
+
+Used by a lot of people who are "serious" about gradient boosted trees.
 
 ---
 
 # LightGBM
 
-MS, open-source, etc
+Gradient boosting framework develped by Microsoft and it is open-source!
+Supports parallel and GPU learning.
+
+```python
+import lightgbm as lgb
+
+estimator = lgb.LGBMRegressor(num_leaves=31)
+
+param_grid = {
+    'learning_rate': [0.01, 0.1, 1],
+    'n_estimators': [20, 40]
+}
+
+gbm = GridSearchCV(estimator, param_grid)
+gbm.fit(X_train, y_train)
+print('Best parameters found by grid search are:',
+      gbm.best_params_)
+```
+
+Set of [benchmarks comparing xgboost and lightgbm](https://github.com/Microsoft/LightGBM/blob/master/docs/Experiments.rst#comparison-experiment).
+
+Looks a bit tricky to install :-/
 
 ---
 
 # Viola Jones for face detection
 
-or some other cool example of boosting with simple estimators
+If you want to see the idea of boosting in action in a different context checkout
+the Viola-Jones object detection algorithm.
+
+.center.width-100[![](images/viola-jones.jpg)]
 
 ---
 
 # Stacking
 
-Combining different kinds of models
+Why limit yourself to combining trees?
+
+Stacking, or combining different types of models.
+```python
+voting = VotingClassifier([('logreg',
+                            LogisticRegression(C=100)),
+                           ('tree',
+                            DecisionTreeClassifier(max_depth=5)),
+                           ('knn',
+                            KNeighborsClassifier(n_neighbors=3))
+                          ],
+                         voting='soft', flatten_transform=True)
+voting.fit(X_train, y_train)
+```
 
 ---
 
-# Combine models "random forest style"
+# Combine models by averaging
 
-several models, combine using VotingClassifier(soft)
-
-XXX plot
+<div style="display: flex">
+.width-100[![](images/voting_Logistic%20Regression.png)]
+.width-100[![](images/voting_KNN.png)]
+.width-100[![](images/voting_Decision Tree.png)]
+</div>
+.center.width-40[![](images/voting_Average.png)]
 
 Can't we learn the weights?
 
@@ -488,26 +561,84 @@ Can't we learn the weights?
 
 # Combine models via LogisticRegression
 
-several models, predict_proba -> fit LogisticRegression
-
-XXX plot
+```python
+# `voting` is our original voting classifier,
+# when you call `transform()` on it it produces
+# class probabilites
+stacking = make_pipeline(voting,
+                         # only keep probabilites for one class
+                         FunctionTransformer(lambda X: X[:, 1::2]),
+                         # fit a logistic regression model
+                         LogisticRegression())
+stacking.fit(X_train, y_train)
+print(stacking.score(X_train, y_train))
+# -> 0.92
+print(stacking.score(X_test, y_test))
+# -> 0.85
+```
 
 What is the problem now?
 
 ---
 
-# cross_val_predict to the rescue
+# Need unbiased predictions
 
-predict_proba on samples that were left out from the fitting, use those
-to learn the weights.
+Fit the original models on a subset of the data, predict on the rest. This
+way you get unbiased predictions for all of the data.
 
+.width-40[![](images/5fold-cv.png)]
+<span style="padding-left: 1em;">
+.blackbg.black[pre] = predict and .whitebg.white[fit] = fit.
+</span>
+
+```
+from sklearn.model_selection import cross_val_predict
+
+first_stage = make_pipeline(voting,
+                            FunctionTransformer(
+                                lambda X: X[:, 1::2])
+                            )
+transform_cv = cross_val_predict(first_stage, X_train, y_train,
+                                 cv=10, method="transform")
+```
+
+---
+
+# Full stacking
+
+```
+from sklearn.model_selection import cross_val_predict
+
+first_stage = make_pipeline(voting,
+                            FunctionTransformer(
+                                lambda X: X[:, 1::2])
+                            )
+# `transform_cv` will contain unbiased predictions
+# for each sample
+transform_cv = cross_val_predict(first_stage, X_train, y_train,
+                                 cv=5, method="transform")
+
+second_stage = LogisticRegression().fit(transform_cv, y_train)
+print(second_stage.coef_)
+```
+
+```
+print(second_stage.score(transform_cv, y_train))
+# -> 0.82
+print(second_stage.score(first_stage.transform(X_test), y_test))
+# -> 0.85
+```
 ---
 
 # Summary
 
 * non linear problems? No problem!
 * redundant features? No problem!
-* Categorical features? No problem!
+* categorical features? No problem!
 * different scales per feature? No problem!
 
-GB is the go to solution for most real world problems. Needs tuning.
+Random forests should be in your baseline. There is essentially no reason
+not to use them. Might not produce the absolute best solution.
+
+Gradient boosted trees is the go to solution for most real world
+problems. Needs some careful tuning.

@@ -87,7 +87,7 @@ conda env create -f environment.yml
 source activate adv-comp-18
 `
 
-To update your environment you can use :
+To update the `adv-comp-18` environment you can use :
 
 `
 conda env update -f environment.yml

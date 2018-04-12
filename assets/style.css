@@ -106,7 +106,7 @@ a:hover {
 }
 
 em {
-    color: #ffab40;
+    color: #784708;
     font-style: normal;
 }
 
@@ -243,6 +243,19 @@ td {
     width: 100%;
 }
 
+.left-column {
+  width: 50%;
+  float: left;
+}
+.reset-column {
+  overflow: auto;
+  width: 100%;
+}
+.right-column {
+  width: 50%;
+  float: right;
+}
+.small { font-size: 0.2em; }
 
 /* Title slide */
 

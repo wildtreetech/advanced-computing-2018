@@ -13,6 +13,7 @@ the week's homework assignment. Followed by a final project on real world data.
 * Tree based models
     * [slides](https://rawgit.com/wildtreetech/advanced-computing-2018/master/index.html?p=lecture2.md) [notebook](https://mybinder.org/v2/gh/wildtreetech/advanced-computing-2018/master?filepath=%2Fmaterial%2Flecture-02%2Flecture.ipynb) [exercise](https://github.com/wildtreetech/advanced-computing-2018/blob/master/material/lecture-02/exercise.ipynb)
 * Neural Networks
+    * [slides](https://rawgit.com/wildtreetech/advanced-computing-2018/master/index.html?p=lecture3.md) [exercise](https://github.com/wildtreetech/advanced-computing-2018/blob/master/material/lecture-03/exercise.ipynb)
 * Feature engineering
 * Embeddings and pretrained networks
 * Interpretability

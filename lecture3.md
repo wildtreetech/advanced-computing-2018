@@ -121,6 +121,44 @@ Blackboard!
 
 ---
 
+# Simple Neuron
+
+$$ f(x) = \sigma(w \cdot x + b) $$
+
+--
+
+.width-50.center[![](images/simple-neuron.png)]
+
+
+.footnote[From https://documents.epfl.ch/users/f/fl/fleuret/www/dlc/]
+---
+
+# Simple Neuron
+
+$$ f(x) = \sigma(w \cdot x + b) $$
+
+.width-50.center[![](images/simple-neuron-2.png)]
+
+.footnote[From https://documents.epfl.ch/users/f/fl/fleuret/www/dlc/]
+
+---
+
+# Simple Neural Network
+
+.width-100.center[![](images/two-layer.png)]
+
+.footnote[From https://documents.epfl.ch/users/f/fl/fleuret/www/dlc/]
+
+---
+
+# In General: A Directed Acyclical Graph
+
+.width-80.center[![](images/nn-as-dag.png)]
+
+.footnote[From https://documents.epfl.ch/users/f/fl/fleuret/www/dlc/]
+
+---
+
 # Deep Neural Networks
 
 .width-100.center[![](images/deep-nns.png)]
@@ -141,6 +179,10 @@ Use fixed feature extractor and tune last step using supervised learning.
 
 Adjust parameters of every step using supervised learning.
 
+--
+
+Ideal for problems where you do not know a good representation of the data.
+
 ---
 
 # Why now?
@@ -157,13 +199,9 @@ Key point: feed raw features to algorithm, learn everything else.
 
 ---
 
-# Convolutional Neural Networks
+# Neural Networks as feature transformers
 
-.width-100.center[![](images/lenet.png)]
-
-.footnote[
-LeCun, Y., Bottou, L., Bengio, Y., and Haffner, P. (1998). Gradient-based learning applied to document recognition.
-]
+neural-networks-as-feature-extractors.ipynb
 
 ---
 
@@ -190,6 +228,17 @@ Spatial organization of the input is destroyed by `Flatten`
 The solution is convolutional layers.
 
 .footnote[From https://github.com/m2dsupsdlclass/lectures-labs]
+
+---
+
+# Convolutional Neural Networks
+
+.width-100.center[![](images/lenet.png)]
+
+.footnote[
+LeCun, Y., Bottou, L., Bengio, Y., and Haffner, P. (1998). Gradient-based learning applied to document recognition.
+]
+
 ---
 
 # Convolution
@@ -249,6 +298,11 @@ convnet = Model(inputs=input_image, outputs=x)
 Two layers of convolution and pooling implemented using keras.
 
 .footnote[From https://github.com/m2dsupsdlclass/lectures-labs]
+---
+# Convolutions illustrated
+
+image-convolutions-with-keras.ipynb
+
 ---
 
 # Colour channels
@@ -373,6 +427,13 @@ layers when **applied to a specific batch of images**.
 
 ---
 
+# Two more layer types
+
+* Drop out - a good way to regularise your network
+* Batch Norm - normalise the data at each layer of the network
+
+---
+
 # Network architectures
 
 .width-100.center[![](images/lenet.png)]
@@ -394,6 +455,8 @@ LeCun, Y., Bottou, L., Bengio, Y., and Haffner, P. (1998). Gradient-based learni
     - Convolution + activation (relu)
     - ...
     - Maxpooling 2x2
+
+    (repeat these a few times)
 
 --
 
@@ -509,6 +572,25 @@ A block learns the residual with respect to identity:
 .footnote[
 from Kaiming He slides "Deep residual learning for image recognition." ICML. 2016.
 ]
+
+---
+
+# State of the art model
+
+Require millions of images and days or weeks of GPU time to train. Don't usually
+have either. What to do?
+
+---
+
+# Transfer learning
+
+.center.width-80[![](images/vgg.png)]
+
+* Treat a whole network as a "feature transformer"
+* Use the last or second to last layer as input features to a logistic regression
+  or a small neural network which is trained on our small dataset
+* teachable machine demo
+
 ---
 
 # Cat or dog?
@@ -550,6 +632,13 @@ What is the left picture? What is the right picture?
 # What do you see?
 
 .center.width-100[![](images/Two_silhouette_profile_or_a_white_vase.jpg)]
+
+---
+
+# Home work
+* Convnet on fashion MNIST
+* transfer learning on road bike dataset
+* what do you want to do as project?
 
 ---
 
